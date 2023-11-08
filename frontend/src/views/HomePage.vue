@@ -16,8 +16,8 @@ export default {
       if (!this.createDisabled && this.username) {
         this.createDisabled = true;
         this.showOverlay = true;
-        const room = 'some_id'; // crypto.randomUUID(),
-        const userId = localStorage.getItem(STORAGE_UID) || 'some_id'; // crypto.randomUUID(),
+        const room = "some_id"; // crypto.randomUUID(),
+        const userId = localStorage.getItem(STORAGE_UID) || "some_id"; // crypto.randomUUID(),
 
         this.$store.dispatch("connectUser", {
           role: ROLES.ADMIN,
