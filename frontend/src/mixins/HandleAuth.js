@@ -7,7 +7,7 @@ export default {
     return {
       sessionName: "",
       username: "",
-      userId: localStorage.getItem(STORAGE_UID) || 'some_id', // crypto.randomUUID(),
+      userId: localStorage.getItem(STORAGE_UID) || "some_id", // crypto.randomUUID(),
       loading: true,
       roomNotFound: false,
       showNotLoggedDialog: false,
