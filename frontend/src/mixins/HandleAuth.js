@@ -7,7 +7,7 @@ export default {
     return {
       sessionName: "",
       username: "",
-      userId: localStorage.getItem(STORAGE_UID) || crypto.randomUUID(),
+      userId: localStorage.getItem(STORAGE_UID) || 'some_id', // crypto.randomUUID(),
       loading: true,
       roomNotFound: false,
       showNotLoggedDialog: false,
@@ -23,7 +23,7 @@ export default {
     // check if room exists first...
     const res = await this.$axios({
       method: "post",
-      url: "http://localhost:8080/api/checkRoom",
+      url: "http://146.190.150.213:8080/api/checkRoom",
       data: {
         room: this.room,
       },
