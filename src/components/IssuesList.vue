@@ -1,8 +1,12 @@
 <script>
 import { mapGetters } from "vuex";
+import Markdown from "./Markdown.vue";
 
 export default {
   name: "IssuesList",
+  components: {
+    Markdown,
+  },
   data() {
     return {
       issuesString: "",
@@ -72,6 +76,7 @@ export default {
 
         // update data via WS to all clients
         this.$store.dispatch("updateIssuesList", this.issuesData);
+        this.issuesString = "";
       }
     },
     removeIssue(issueNumber) {
@@ -109,6 +114,7 @@ export default {
       <v-text-field
         class="issues-input"
         v-model="issuesString"
+        @keydown.enter.prevent="fetchIssues"
         label="Search by issue number (comma separated)"
       ></v-text-field>
       <v-btn class="btn-primary" outlined @click="fetchIssues">
@@ -144,7 +150,8 @@ export default {
         </v-card-title>
 
         <v-card-text class="issue-text-block">
-          <p class="issue-text" v-html="issue.body"></p>
+          <Markdown :text="issue?.body"></Markdown>
+          <!-- <p class="issue-text" v-html="issue.body"></p> -->
         </v-card-text>
 
         <v-card-actions>
@@ -192,7 +199,7 @@ export default {
 .issues-container {
   padding: 1rem 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   gap: 2rem 1.5rem;
 
   .v-card.issue-card {

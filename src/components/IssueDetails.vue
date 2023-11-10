@@ -1,9 +1,12 @@
 <script>
 import { mapGetters } from "vuex";
-import { getContrastedColor } from "../utils/utils";
+import Markdown from "./Markdown.vue";
 
 export default {
   name: "IssueDetails",
+  components: {
+    Markdown,
+  },
   computed: {
     ...mapGetters(["issues"]),
     currentIssue() {
@@ -17,8 +20,11 @@ export default {
     },
   },
   methods: {
-    contrastedColor(color) {
-      return getContrastedColor(color);
+    getLabelBorderColor(bgColor) {
+      console.log(bgColor);
+      return bgColor.toUpperCase() === "ffffff".toUpperCase()
+        ? "141414"
+        : "transparent";
     },
   },
 };
@@ -46,7 +52,7 @@ export default {
       /></a>
     </div>
     <div class="issue-details-block">
-      <p class="issue-text" v-html="currentIssue.body"></p>
+      <Markdown :text="currentIssue?.body"></Markdown>
       <div class="labels-block">
         <div class="issue-metadata-block">
           <h3>Labels</h3>
@@ -56,8 +62,8 @@ export default {
               v-for="label in currentIssue.labels"
               :key="label.id"
               :style="{
-                background: `#${label.color}`,
-                color: `#${contrastedColor(label.color)}`,
+                background: `#${label.color}40`,
+                borderColor: `#${getLabelBorderColor(label.color)}`,
               }"
             >
               {{ label.name }}
@@ -121,12 +127,8 @@ export default {
 
 .issue-details-block {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.4fr 0.6fr;
   gap: 3rem;
-
-  .issue-text {
-    line-height: 1.5rem;
-  }
 
   .issue-metadata-block {
     margin-bottom: 2rem;
@@ -146,6 +148,8 @@ export default {
   display: flex;
   align-items: center;
   font-weight: 500;
+  border: solid 1px transparent;
+  color: #000000;
 }
 .status-chip {
   text-transform: capitalize;
