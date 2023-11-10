@@ -52,7 +52,6 @@ export default {
 <template>
   <div class="homepage-container">
     <div class="homepage-content">
-      <h1>Testing CI/CD</h1>
       <h1>Welcome to the UX/UI planning tool! Create a session:</h1>
       <div>
         <v-text-field v-model="username" label="Username"></v-text-field>
