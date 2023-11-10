@@ -1,0 +1,27 @@
+name: Deploy Poker Tool Frontend
+
+on:
+  push:
+    branches:
+      - workflow
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: SSH to DigitalOcean Droplet
+        run: |
+          ssh -o StrictHostKeyChecking=no root@146.190.150.213 'cd /home/poker-tool && git pull origin workflow && yarn install && yarn build'
+
+      # - name: Restart Nginx
+      #   run: |
+      #     ssh -o StrictHostKeyChecking=no user@droplet_ip_address 'sudo systemctl restart nginx'
