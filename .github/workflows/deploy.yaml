@@ -8,11 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [14.21.3]
-
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
